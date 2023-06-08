@@ -5,11 +5,11 @@
 using namespace std;
 
 bool Piece::can_be_left_to(const Piece& other) const {
-    return left_ == other.right_;
+    return right_ == other.left_;
 }
 
 bool Piece::can_be_right_to(const Piece& other) const {
-    return right_ == other.left_;
+    return left_ == other.right_;
 }
 
 const Piece& Domino::left() const {
@@ -21,7 +21,7 @@ const Piece& Domino::right() const {
 }
 
 bool Domino::place_left(const Piece& p) {
-    if (pieces_.empty() || p.can_be_left_to(left())) {
+    if (pieces_.empty() || p.can_be_left_to(pieces_.front())) {
         pieces_.push_front(p);
         return true;
     }
@@ -29,7 +29,7 @@ bool Domino::place_left(const Piece& p) {
 }
 
 bool Domino::place_right(const Piece& p) {
-    if (pieces_.empty() || p.can_be_right_to(right())) {
+    if (pieces_.empty() || p.can_be_right_to(pieces_.back())) {
         pieces_.push_back(p);
         return true;
     }
